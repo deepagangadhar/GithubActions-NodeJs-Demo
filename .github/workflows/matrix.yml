@@ -1,0 +1,30 @@
+name: build nodejs application
+on: # multiple triggers when this workflow can run
+ workflow_dispatch:
+ push:
+   branches:
+     - master
+ pull_request:
+   branches:
+     - master
+jobs:
+  job1:
+    continue-on-error: true
+    strategy:
+     matrix: #its like loop to repeat the steps till all the options are exhausted
+      operating_system: [ubuntu-latest, windows-latest]
+    runs-on: {{ matrix.operating_system }}
+    steps: 
+    - name: Clone the repo 
+      uses: actions/checkout@v6
+    - name: Install nodejs
+      uses: actions/setup-node@v6
+      with: 
+        node-version: 18
+        cache: 'npm'
+    - name: Install node dependencies
+      run: npm ci 
+    - name: Execute test cases 
+      run: npm test
+    - name: Build the nodejs code
+      run: npm run build 
