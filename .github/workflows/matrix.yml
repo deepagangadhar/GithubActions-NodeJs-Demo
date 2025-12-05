@@ -9,10 +9,11 @@ on: # multiple triggers when this workflow can run
      - master
 jobs:
   job1:
+    continue-on-error: true
     strategy:
      matrix: #its like loop to repeat the steps till all the options are exhausted
       operating_system: [ubuntu-latest, windows-latest]
-    runs-on: {{ matrix.operating_system }}
+    runs-on: ${{ matrix.operating_system }}
     steps: 
     - name: Clone the repo 
       uses: actions/checkout@v6
