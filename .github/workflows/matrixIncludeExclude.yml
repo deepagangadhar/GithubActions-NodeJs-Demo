@@ -1,4 +1,4 @@
-name: Matrix Workflow
+name: Matrix Workflow #matrix example
 on:
  workflow_dispatch:
  push:
